@@ -31,6 +31,11 @@ Remember to configure in the code your SMTP,WiFi,EasyDDNS and Timezone settings.
 If you use PlatformIO you can install them directly from the integrated library manager, except for NTPClient which you should install manually because it's a fork.
 Same for Arduino IDE.
 
+## Changelog
+- 1.0: Initial release
+- 1.1: Alarm Manager is now a standalone webapp, with full iOS and Android favicon and app icon support.  
+Save to homescreen to get the standalone webapp.
+
 ## Compiling in Arduino IDE
 
 - Rename Alarm.cpp from *.cpp to *.ino
