@@ -33,7 +33,7 @@ Same for Arduino IDE.
 
 ## Changelog
 - 1.0: Initial release
-- 1.1: Alarm Manager is now a standalone webapp, with full iOS and Android favicon and app icon support.  
+- 1.1: Alarm Manager is now a standalone webapp, with full iOS favicon,app icon and splashscreen support. (Android soon, as I don't have an Android device right now.)  
 Save to homescreen to get the standalone webapp.
 
 ## Compiling in Arduino IDE
