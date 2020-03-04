@@ -122,10 +122,53 @@ void setup() {
     delay(2000);
     request->send(SPIFFS, "/index.html", String(),false,processor);
   });
+  //webapp
   server.on("/style.css", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send(SPIFFS, "/style.css", "text/css");
   });
-  server.begin();
+  server.on("/apple-icon-57x57.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/apple-icon-57x57.png", "image/png");
+  });
+  server.on("/apple-icon-60x60.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/apple-icon-60x60.png", "image/png");
+  });
+  server.on("/apple-icon-72x72.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/apple-icon-72x72.png", "image/png");
+  });
+  server.on("/apple-icon-76x76.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/apple-icon-76x76.png", "image/png");
+  });
+  server.on("/apple-icon-114x114.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/apple-icon-114x114.png", "image/png");
+  });
+  server.on("/apple-icon-120x120.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/apple-icon-120x120.png", "image/png");
+  });
+  server.on("/apple-icon-144x144.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/apple-icon-144x144.png", "image/png");
+  });
+  server.on("/apple-icon-152x152.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/apple-icon-152x152.png", "image/png");
+  });
+  server.on("/apple-icon-180x180.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/apple-icon-180x180.png", "image/png");
+  });
+  server.on("/android-icon-192x192.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/android-icon-192x192.png", "image/png");
+  });
+  server.on("/favicon-32x32.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/favicon-32x32.png", "image/png");
+  });
+  server.on("/favicon-96x96.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/favicon-96x96.png", "image/png");
+  });
+  server.on("/favicon-16x16.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/favicon-16x16.png", "image/png");
+  });
+  server.on("/manifest.json", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/manifest.json", "application/json");
+  });
+  
 
   //setup DDNS
   EasyDDNS.service("............");
