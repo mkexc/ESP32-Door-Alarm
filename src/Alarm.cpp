@@ -1,9 +1,3 @@
-/*Credits
-
-Author: Michelangelo Bartolomucci (mkexc)  
-Follow me on github for other interesting projects! :)  
-License GNU AGPL */
-
 #include <Arduino.h>
 #include <Preferences.h>
 #include <WiFi.h>
@@ -168,7 +162,38 @@ void setup() {
   server.on("/manifest.json", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send(SPIFFS, "/manifest.json", "application/json");
   });
+    server.on("/splashscreens/iphone5_splash.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/fsplashscreens/iphone5.png", "image/png");
+  });
+    server.on("/splashscreens/iphone6_splash.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/splashscreens/iphone6.png", "image/png");
+  });
+    server.on("/splashscreens/iphoneplus_splash.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/splashscreens/iphoneplus.png", "image/png");
+  });
+    server.on("/splashscreens/iphonex_splash.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/splashscreens/iphonex.png", "image/png");
+  });
+    server.on("/splashscreens/iphonexr_splash.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/splashscreens/iphonexr.png", "image/png");
+  });
+    server.on("/splashscreens/iphonexsmax_splash.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/splashscreens/iphonexsmax.png", "image/png");
+  });
+    server.on("/splashscreens/ipad_splash.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/splashscreens/ipad.png", "image/png");
+  });
+    server.on("/splashscreens/ipadpro1_splash.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/splashscreens/ipadpro1.png", "image/png");
+  });
+    server.on("/splashscreens/ipadpro3_splash.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/splashscreens/ipadpro3.png", "image/png");
+  });
+    server.on("/splashscreens/ipadpro2_splash.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/splashscreens/ipadpro2.png", "image/png");
+  });
   
+  server.begin();
 
   //setup DDNS
   EasyDDNS.service("............");

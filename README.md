@@ -64,4 +64,4 @@ Save to homescreen to get the standalone webapp.
 
 **Author**: Michelangelo Bartolomucci (**mkexc**)  
 If you liked this project and want to support further development, you can buy me a [🍻beer](https://www.paypal.me/mibart/5). :)  
-**License GNU AGPL**
+**License GPLv3**
