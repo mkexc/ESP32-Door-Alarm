@@ -5,15 +5,16 @@ html {
   text-align: center;
 }
 h1{
-  color: #0F3376;
+  color: #d48e26;
   padding: 2vh;
 }
 p{
   font-size: 1.5rem;
+  color: #FFFFFF;
 }
 .button {
   display: inline-block;
-  background-color: #008CBA;
+  background-color: #d48e26;
   border: none;
   border-radius: 4px;
   color: white;
@@ -27,4 +28,8 @@ body {
   -webkit-user-select: none;
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
+  background-color: #374c5e;
+}
+strong{
+  color: #FFFFFF;
 }

@@ -29,15 +29,15 @@
 #define HALL 25
 
 //global variables
-char ssid[]= "............";
-char pass[]="............";
-char smtpServer[]="............";
-char smtpLogin[]="............";
-char smtpPass[]="............";
-char smtpRecipient[]="............";
-char smtpSenderEmail[]="............";
-char smtpSenderName[]="............";
-char smtpSubject[]="............";
+char ssid[]= "..............";
+char pass[]="..............";
+char smtpServer[]="..............";
+char smtpLogin[]="..............";
+char smtpPass[]="..............";
+char smtpRecipient[]="..............";
+char smtpSenderEmail[]="..............";
+char smtpSenderName[]="..............";
+char smtpSubject[]="..............";
 bool armed;
 int magn,timezone=+1; //set GMT timezone
 time_t currentTime,previousTime;
@@ -196,8 +196,8 @@ void setup() {
   server.begin();
 
   //setup DDNS
-  EasyDDNS.service("............");
-  EasyDDNS.client("............","............","............");
+  EasyDDNS.service("..............");
+  EasyDDNS.client("..............","..............","..............");
 
   previousTime=0;
 
