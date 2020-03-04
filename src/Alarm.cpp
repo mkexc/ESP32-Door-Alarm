@@ -52,35 +52,28 @@ String LedState;
 
 //prototypes
 String processor(const String& var);
+void webServerSetup();
+void getLastSetting();
+void wifiSetup();
+void otaSetup();
+void SMTPSetup();
+void sendMail();
 
 //functions
 
 void setup() {
+  Serial.begin(115200);
+
   //get last setting before shutdown
-  eeprom.begin("allarme",false);
-  armed=eeprom.getInt("armed");
-  eeprom.end();
-  Serial.println(armed);
+  getLastSetting();
 
   //set pins
   pinMode(HALL,INPUT);
   pinMode(LED,OUTPUT);
   digitalWrite(LED,armed);
   
-  Serial.begin(115200);
-
   //WIFI Setup
-  WiFi.mode(WIFI_STA);
-  WiFi.begin(ssid,pass);
-  WiFi.setHostname("ESP32");
-  
-  while(!WiFi.isConnected())
-  {
-    Serial.println(".");
-  }
-  Serial.println("Connected.");
-  Serial.print("IP: ");
-  Serial.println(WiFi.localIP());
+  wifiSetup();
   
   //SPIFFS Mount
   if(!SPIFFS.begin(true))
@@ -89,16 +82,59 @@ void setup() {
     return;
   }
   //SMTP Server & Email Settings
-  smtpData.setLogin(smtpServer,587,smtpLogin,smtpPass);
-  smtpData.setPriority("High");
-  smtpData.setSubject(smtpSubject);
-  smtpData.addRecipient(smtpRecipient);
-  smtpData.setSender(smtpSenderName,smtpSenderEmail);
+  SMTPSetup();
 
   //NTP Time initial setup
   ntptime.begin();  
 
   //WebServer Settings and handling
+  webServerSetup();
+  
+  //setup DDNS
+  EasyDDNS.service("..............");
+  EasyDDNS.client("..............","..............","..............");
+
+  previousTime=0;
+
+  //OTA Setup
+  otaSetup();
+  
+}
+
+void loop() {
+  ArduinoOTA.handle();
+  EasyDDNS.update(10000);
+  magn=digitalRead(HALL);
+  currentTime=millis();
+  if(!(magn)&&(armed)&&(currentTime-previousTime>=60000))
+  {
+    previousTime=currentTime;
+    currentTime=millis();
+    sendMail();
+  }
+}
+
+//switch HTML variables
+String processor(const String& var)
+{
+  Serial.println(var);
+  if (var=="STATE")
+  {
+    if (armed)
+    {
+      LedState = "ON";
+    }
+    else
+    {
+      LedState = "OFF";
+    }
+    return LedState;
+  }
+  return String();
+}
+
+void webServerSetup()
+{
   if(MDNS.begin("esp32"))
   {
     Serial.println("MDNS Responder started");
@@ -194,14 +230,31 @@ void setup() {
   });
   
   server.begin();
-
-  //setup DDNS
-  EasyDDNS.service("..............");
-  EasyDDNS.client("..............","..............","..............");
-
-  previousTime=0;
-
-  //OTA Setup
+}
+void getLastSetting()
+{
+  eeprom.begin("allarme",false);
+  armed=eeprom.getInt("armed");
+  eeprom.end();
+  Serial.println(armed);
+}
+void wifiSetup()
+{
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(ssid,pass);
+  WiFi.setHostname("ESP32");
+  
+  while(!WiFi.isConnected())
+  {
+    Serial.println(".");
+  }
+  Serial.println("Connected.");
+  Serial.print("IP: ");
+  Serial.println(WiFi.localIP());
+  
+}
+void otaSetup()
+{
   ArduinoOTA.setPort(3232);
   ArduinoOTA
     .onStart([]() {
@@ -231,42 +284,20 @@ void setup() {
 
   ArduinoOTA.begin();
 }
-
-void loop() {
-  ArduinoOTA.handle();
-  EasyDDNS.update(10000);
-  magn=digitalRead(HALL);
-  ArduinoOTA.handle();
-  currentTime=millis();
-  if(!(magn)&&(armed)&&(currentTime-previousTime>=60000))
-  {
-    previousTime=currentTime;
-    currentTime=millis();
-     ntptime.update();
-     String day = ntptime.getFormattedDate();
-     int T=day.indexOf("T");
-     smtpData.setMessage("Rilevata un' intrusione alle "+ntptime.getFormattedTime()+" il "+day.substring(0,T)+"",false);
-     MailClient.sendMail(smtpData);
-     Serial.println("Email sent!");
-  }
-  ArduinoOTA.handle();
-}
-
-//switch HTML variables
-String processor(const String& var)
+void SMTPSetup()
 {
-  Serial.println(var);
-  if (var=="STATE")
-  {
-    if (armed)
-    {
-      LedState = "ON";
-    }
-    else
-    {
-      LedState = "OFF";
-    }
-    return LedState;
-  }
-  return String();
+  smtpData.setLogin(smtpServer,587,smtpLogin,smtpPass);
+  smtpData.setPriority("High");
+  smtpData.setSubject(smtpSubject);
+  smtpData.addRecipient(smtpRecipient);
+  smtpData.setSender(smtpSenderName,smtpSenderEmail);
+}
+void sendMail()
+{
+  ntptime.update();
+  String day = ntptime.getFormattedDate();
+  int T=day.indexOf("T");
+  smtpData.setMessage("Rilevata un' intrusione alle "+ntptime.getFormattedTime()+" il "+day.substring(0,T)+"",false);
+  MailClient.sendMail(smtpData);
+  Serial.println("Email sent!");
 }

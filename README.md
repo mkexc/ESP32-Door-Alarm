@@ -37,6 +37,7 @@ Same for Arduino IDE.
 (Android soon/not tested, as I don't have an Android device right now.)  
 Save to homescreen to get the standalone webapp.
 - 1.2: Polished iOS PWA. Changed Partition scheme with a custom made one.
+- 1.3: Polished splashscreen. Code Cleanup.
 
 ## Compiling in Arduino IDE
 
