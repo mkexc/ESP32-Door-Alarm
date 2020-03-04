@@ -29,15 +29,15 @@
 #define HALL 25
 
 //global variables
-char ssid[]= "..............";
-char pass[]="..............";
-char smtpServer[]="..............";
-char smtpLogin[]="..............";
-char smtpPass[]="..............";
-char smtpRecipient[]="..............";
-char smtpSenderEmail[]="..............";
-char smtpSenderName[]="..............";
-char smtpSubject[]="..............";
+char ssid[]= ".............";
+char pass[]=".............";
+char smtpServer[]=".............";
+char smtpLogin[]=".............";
+char smtpPass[]=".............";
+char smtpRecipient[]=".............";
+char smtpSenderEmail[]=".............";
+char smtpSenderName[]=".............";
+char smtpSubject[]=".............";
 bool armed;
 int magn,timezone=+1; //set GMT timezone
 time_t currentTime,previousTime;
@@ -52,12 +52,12 @@ String LedState;
 
 //prototypes
 String processor(const String& var);
-void webServerSetup();
-void getLastSetting();
-void wifiSetup();
-void otaSetup();
-void SMTPSetup();
-void sendMail();
+void webServerSetup(void);
+void getLastSetting(void);
+void wifiSetup(void);
+void otaSetup(void);
+void SMTPSetup(void);
+void sendMail(void);
 
 //functions
 
@@ -91,8 +91,8 @@ void setup() {
   webServerSetup();
   
   //setup DDNS
-  EasyDDNS.service("..............");
-  EasyDDNS.client("..............","..............","..............");
+  EasyDDNS.service(".............");
+  EasyDDNS.client(".............",".............",".............");
 
   previousTime=0;
 
