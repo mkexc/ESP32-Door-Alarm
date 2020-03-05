@@ -1,5 +1,19 @@
+@font-face {
+  font-family: 'Raleway';
+  src: local('Raleway-Bold'), url('/fonts/raleway-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Raleway';
+  src: local('Raleway-Regular'), url('/fonts/raleway-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 html {
-  font-family: Helvetica;
+  font-family: 'Raleway', sans-serif;
   display: inline-block;
   margin: 0px auto;
   text-align: center;
@@ -7,10 +21,12 @@ html {
 h1{
   color: #d48e26;
   padding: 2vh;
+  font-weight: 400;
 }
 p{
   font-size: 1.5rem;
   color: #FFFFFF;
+  font-weight: 400;
 }
 .button {
   display: inline-block;
@@ -32,4 +48,9 @@ body {
 }
 strong{
   color: #FFFFFF;
+  font-weight: 700;
+  font-size: 23px;
+}
+strong.on{
+  color: #d48e26;
 }

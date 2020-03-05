@@ -109,7 +109,6 @@ void loop() {
   if(!(magn)&&(armed)&&(currentTime-previousTime>=60000))
   {
     previousTime=currentTime;
-    currentTime=millis();
     sendMail();
   }
 }
@@ -122,11 +121,11 @@ String processor(const String& var)
   {
     if (armed)
     {
-      LedState = "ON";
+      LedState = "<strong class=\"on\">ON</strong>";
     }
     else
     {
-      LedState = "OFF";
+      LedState = "<strong>OFF</strong>";
     }
     return LedState;
   }
@@ -228,7 +227,10 @@ void webServerSetup()
     server.on("/splashscreens/ipadpro2_splash.png", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send(SPIFFS, "/splashscreens/ipadpro2.png", "image/png");
   });
-  
+  server
+    .serveStatic("/fonts/",SPIFFS,"/fonts/")
+    .setDefaultFile("index.html")
+    .setCacheControl("max-age=600");
   server.begin();
 }
 void getLastSetting()
